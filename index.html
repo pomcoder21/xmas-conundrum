@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>The Christmas Conundrum — 101 Collins St</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FDFAF6;
+    --cream-dim: rgba(253, 250, 246, 0.55);
+    --cream-faint: rgba(253, 250, 246, 0.25);
+    --cream-hairline: rgba(253, 250, 246, 0.18);
+    --black: #000;
+    --serif: "Sang Bleu Kingdom", "Playfair Display", Times, serif;
+    --sans: "Akkurat", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    background: var(--black);
+    color-scheme: dark;
+  }
+  body {
+    min-height: 100dvh;
+    background: var(--black);
+    color: var(--cream);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- Watermark ---------- */
+  .watermark {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .watermark span {
+    font-family: var(--serif);
+    font-size: min(70vh, 60vw);
+    line-height: 1;
+    color: var(--cream);
+    opacity: 0.045;
+    letter-spacing: 0.05em;
+    user-select: none;
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 28px;
+    border-bottom: 1px solid var(--cream-hairline);
+    position: relative;
+    z-index: 2;
+  }
+  .wordmark {
+    font-size: 13px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .wordmark b { font-weight: 400; }
+  header .tagline {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+  }
+
+  /* ---------- Main ---------- */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: clamp(36px, 7vh, 72px) 24px 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .title-block { text-align: center; }
+  .title-block h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(34px, 7vw, 58px);
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+  }
+  .title-block .sub {
+    margin-top: 12px;
+    font-size: 10px;
+    letter-spacing: 0.30em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+  }
+
+  /* ---------- Jumble ---------- */
+  .jumble {
+    margin: clamp(30px, 6vh, 54px) 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
+  .jumble-row {
+    display: flex;
+    gap: 8px;
+  }
+  .tile {
+    width: clamp(38px, 10.5vw, 62px);
+    height: clamp(46px, 12.5vw, 74px);
+    border: 1px solid var(--cream-faint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: clamp(22px, 5.5vw, 36px);
+    text-transform: uppercase;
+    color: var(--cream);
+    user-select: none;
+    opacity: 0;
+    animation: deal 0.5s ease forwards;
+  }
+  @keyframes deal {
+    0% { opacity: 0; transform: rotateX(90deg); }
+    100% { opacity: 1; transform: rotateX(0); }
+  }
+  .tile.swap { animation: deal 0.4s ease forwards; }
+
+  .shuffle-line {
+    margin-bottom: clamp(28px, 5vh, 46px);
+  }
+  .shuffle-line button {
+    background: none;
+    border: none;
+    color: var(--cream-dim);
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 8px;
+    transition: color 0.25s;
+  }
+  .shuffle-line button:hover { color: var(--cream); }
+
+  /* ---------- Copy ---------- */
+  .comp-copy {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--cream-dim);
+    text-align: center;
+    max-width: 54ch;
+  }
+  .comp-copy b { color: var(--cream); font-weight: 400; }
+
+  hr.rule {
+    border: none;
+    border-top: 1px solid var(--cream-hairline);
+    width: 100%;
+    margin: clamp(28px, 5vh, 44px) 0;
+  }
+
+  /* ---------- Form ---------- */
+  form {
+    width: 100%;
+    max-width: 520px;
+  }
+  .field { margin-bottom: 26px; }
+  .field label {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--cream-dim);
+    margin-bottom: 10px;
+  }
+  .field input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--cream-faint);
+    border-radius: 0;
+    color: var(--cream);
+    font-family: var(--sans);
+    font-size: 16px;
+    padding: 4px 0 12px;
+    outline: none;
+    transition: border-color 0.25s;
+  }
+  .field input:focus { border-bottom-color: var(--cream); }
+  .field.error input { border-bottom-color: #b0563e; }
+  .field input#f-answer {
+    font-family: var(--serif);
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .form-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+  }
+  .cta {
+    background: none;
+    border: none;
+    color: var(--cream);
+    font-family: var(--sans);
+    font-size: 15px;
+    cursor: pointer;
+    padding: 8px 0;
+    letter-spacing: 0.03em;
+    transition: opacity 0.25s;
+  }
+  .cta:hover { opacity: 0.75; }
+  .cta .arrow { display: inline-block; transition: transform 0.25s; margin-left: 6px; }
+  .cta:hover .arrow { transform: translateX(5px); }
+
+  /* ---------- Thanks ---------- */
+  #entry-thanks {
+    display: none;
+    text-align: center;
+    max-width: 46ch;
+  }
+  #entry-thanks h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(26px, 5vw, 38px);
+    margin-bottom: 14px;
+  }
+  #entry-thanks p {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--cream-dim);
+  }
+
+  /* ---------- Toast ---------- */
+  .toast {
+    position: fixed;
+    top: 84px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--cream);
+    color: var(--black);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 12px 22px;
+    z-index: 50;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 0 24px 34px;
+    font-size: 10px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: rgba(253, 250, 246, 0.3);
+  }
+
+  @media (max-width: 420px) {
+    header { padding: 16px 18px; }
+    .wordmark { font-size: 11px; letter-spacing: 0.26em; }
+    header .tagline { display: none; }
+    .jumble, .jumble-row { gap: 6px; }
+    .tile {
+      width: clamp(30px, 10.5vw, 44px);
+      height: clamp(38px, 13vw, 56px);
+      font-size: clamp(18px, 6vw, 28px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tile { animation: none; opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<div class="watermark" aria-hidden="true"><span>IOI</span></div>
+
+<header>
+  <div class="wordmark"><b>IOI&nbsp;&nbsp;Collins&nbsp;St</b></div>
+  <div class="tagline">Christmas 2026</div>
+</header>
+
+<main>
+  <div class="title-block">
+    <h1>The Christmas Conundrum</h1>
+    <div class="sub">Unscramble the letters &middot; 101 Collins Street</div>
+  </div>
+
+  <div class="jumble" id="jumble" aria-label="Jumbled letters"></div>
+  <div class="shuffle-line">
+    <button id="btn-shuffle" type="button">Shuffle letters</button>
+  </div>
+
+  <p class="comp-copy">Hidden in the letters above is a festive phrase <b>(two words)</b>. To be in the running to win a handful of <b>101 Collins Christmas goodies</b>, leave us your answer along with your name, email and business name &mdash; we&rsquo;ll announce weekly winners in the run&#8209;up to Christmas.</p>
+
+  <hr class="rule">
+
+  <form id="entry-form" novalidate>
+    <div class="field">
+      <label for="f-answer">Your Answer</label>
+      <input id="f-answer" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false">
+    </div>
+    <div class="field">
+      <label for="f-name">Full Name</label>
+      <input id="f-name" type="text" autocomplete="name">
+    </div>
+    <div class="field">
+      <label for="f-email">Email</label>
+      <input id="f-email" type="email" autocomplete="email">
+    </div>
+    <div class="field">
+      <label for="f-business">Business Name</label>
+      <input id="f-business" type="text" autocomplete="organization">
+    </div>
+    <div class="form-footer">
+      <button type="submit" class="cta" id="btn-submit">Submit<span class="arrow">&rarr;</span></button>
+    </div>
+  </form>
+
+  <div id="entry-thanks">
+    <h2>Merry Christmas.</h2>
+    <p>Your entry is ready in your email app &mdash; hit send to lock it in. We&rsquo;ll announce weekly winners in the run&#8209;up to Christmas. Good luck.</p>
+  </div>
+</main>
+
+<footer>101 Collins Street &middot; Melbourne</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+
+/* ================= The conundrum ================= */
+const JUMBLE = "TAZSOMBHACRINS".split(""); // fixed scramble shown to everyone
+const ENTRY_EMAIL = "tom@pompom.studio";    // where entries are sent
+
+/* ================= Jumble tiles ================= */
+const jumbleEl = document.getElementById("jumble");
+let letters = JUMBLE.slice();
+
+function renderJumble(reanimate) {
+  jumbleEl.innerHTML = "";
+  const rows = [letters.slice(0, 7), letters.slice(7)];
+  let i = 0;
+  rows.forEach(rowLetters => {
+    const row = document.createElement("div");
+    row.className = "jumble-row";
+    rowLetters.forEach(ch => {
+      const t = document.createElement("div");
+      t.className = "tile";
+      t.textContent = ch;
+      t.style.animationDelay = (reanimate ? i * 0.03 : 0.15 + i * 0.07) + "s";
+      row.appendChild(t);
+      i++;
+    });
+    jumbleEl.appendChild(row);
+  });
+}
+renderJumble(false);
+
+document.getElementById("btn-shuffle").addEventListener("click", () => {
+  for (let i = letters.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [letters[i], letters[j]] = [letters[j], letters[i]];
+  }
+  renderJumble(true);
+});
+
+/* ================= Toast ================= */
+const toastEl = document.getElementById("toast");
+let toastTimer;
+function toast(msg, ms = 1600) {
+  toastEl.textContent = msg;
+  toastEl.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove("show"), ms);
+}
+
+/* ================= Entry form ================= */
+const STORAGE_ENTERED = "ioi-conundrum-entered";
+const formEl = document.getElementById("entry-form");
+const thanksEl = document.getElementById("entry-thanks");
+
+if (localStorage.getItem(STORAGE_ENTERED)) {
+  formEl.style.display = "none";
+  thanksEl.style.display = "block";
+}
+
+formEl.addEventListener("submit", e => {
+  e.preventDefault();
+  const fields = ["f-answer", "f-name", "f-email", "f-business"];
+  let bad = false;
+  const values = {};
+  fields.forEach(id => {
+    const input = document.getElementById(id);
+    const v = input.value.trim();
+    const invalid = !v || (id === "f-email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+    input.closest(".field").classList.toggle("error", invalid);
+    if (invalid) bad = true;
+    values[id] = v;
+  });
+  if (bad) { toast("Please complete all fields"); return; }
+
+  const body =
+    `Answer: ${values["f-answer"]}\n` +
+    `Name: ${values["f-name"]}\n` +
+    `Email: ${values["f-email"]}\n` +
+    `Business: ${values["f-business"]}\n`;
+  const href = `mailto:${ENTRY_EMAIL}?subject=${encodeURIComponent("The Christmas Conundrum — entry")}&body=${encodeURIComponent(body)}`;
+  const a = document.createElement("a");
+  a.href = href;
+  a.target = "_blank";
+  a.rel = "noopener";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  localStorage.setItem(STORAGE_ENTERED, "1");
+  formEl.style.display = "none";
+  thanksEl.style.display = "block";
+  thanksEl.scrollIntoView({ behavior: "smooth", block: "center" });
+  toast("Opening your email app");
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "xmas-conundrum-relay",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker that appends Christmas Conundrum entries to a CSV in a private GitHub repo",
+  "scripts": {
+    "test": "node test/relay.test.mjs",
+    "deploy": "wrangler deploy"
+  },
+  "type": "module",
+  "devDependencies": {
+    "wrangler": "^4.143.0"
+  },
+  "private": true
+}

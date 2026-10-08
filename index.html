@@ -26,6 +26,7 @@
     --red: #E52E12;
     --green: #3D5B33;
     --display: "TAY Dumpling", "Oswald", "Arial Narrow", sans-serif;
+    --cap-nudge: 0.137em;  /* TAY Dumpling capitals sit this far above centre; used to recentre them */
     --body: "TAY Birdie", "Space Mono", "Courier New", monospace;
   }
 
@@ -48,11 +49,13 @@
     user-select: none;
   }
   .stamp img { display: block; width: 100%; height: auto; }
-  .stamp-tree     { left: 2.1vw;  top: 300px;  width: clamp(90px, 11.9vw, 204px); transform: rotate(-14.2deg); }
-  .stamp-present  { right: 3.6vw; top: 80px;   width: clamp(88px, 11vw, 197px); }
-  .stamp-wreath   { right: 5.5vw; top: 800px;  width: clamp(80px, 10.4vw, 180px); transform: rotate(6.33deg); }
-  .stamp-santa-hat{ right: -3vw;  top: 950px;  width: clamp(90px, 11vw, 190px); transform: rotate(-11.22deg); }
-  .stamp-holly    { left: 4.3vw;  top: 990px;  width: clamp(95px, 12.3vw, 210px); transform: rotate(12.42deg); }
+  /* Stamp tops are % of the cream area, taken from the Figma frame, so they never drift onto the red panel */
+  .stage { position: relative; overflow-x: clip; }
+  .stamp-tree     { left: 2.1vw;  top: 22.4%; width: clamp(90px, 11.9vw, 204px); transform: rotate(-14.2deg); }
+  .stamp-present  { right: 3.6vw; top: 6%;    width: clamp(88px, 11vw, 197px); }
+  .stamp-wreath   { right: 5.5vw; top: 58.9%; width: clamp(80px, 10.4vw, 180px); transform: rotate(6.33deg); }
+  .stamp-santa-hat{ right: -1.6vw; top: 69%;  width: clamp(90px, 11vw, 190px); transform: rotate(-11.22deg); }
+  .stamp-holly    { left: 4.3vw;  top: 72.4%; width: clamp(95px, 12.3vw, 210px); transform: rotate(12.42deg); }
 
   /* ---------- Hero / title ---------- */
   .hero {
@@ -66,7 +69,7 @@
   .hero img { display: block; height: auto; }
   .title-the        { width: clamp(48px, 6.2vw, 107px); }
   .title-christmas  { width: clamp(140px, 18.1vw, 311px); margin-top: clamp(10px, 1.4vw, 24px); }
-  .title-conundrum  { width: clamp(172px, 22.1vw, 380px); margin-top: clamp(8px, 1.1vw, 19px); }
+  .title-conundrum  { width: clamp(155px, 19.9vw, 342px); margin-top: clamp(8px, 1.1vw, 19px); }
 
   /* ---------- Jumble ---------- */
   .jumble {
@@ -80,6 +83,7 @@
   }
   .jumble-row { display: flex; gap: clamp(4px, 0.35vw, 6px); }
   .tile {
+    padding-top: calc(var(--cap-nudge) * 2);
     width: clamp(40px, 7.4vw, 127px);
     height: clamp(40px, 7.4vw, 127px);
     background: var(--red);
@@ -110,7 +114,7 @@
     letter-spacing: 0.11em;
     text-transform: uppercase;
     cursor: pointer;
-    padding: clamp(8px, 0.8vw, 14px) clamp(28px, 3.2vw, 56px);
+    padding: calc(clamp(8px, 0.8vw, 14px) + var(--cap-nudge)) clamp(28px, 3.2vw, 56px) calc(clamp(8px, 0.8vw, 14px) - var(--cap-nudge));
     transition: opacity 0.25s;
   }
   .shuffle-line button:hover { opacity: 0.85; }
@@ -180,7 +184,7 @@
     border-radius: 0;
     color: var(--cream);
     font-family: var(--body);
-    font-size: clamp(15px, 1.15vw, 20px);
+    font-size: clamp(16px, 1.15vw, 20px);
     text-transform: uppercase;
     padding: 2px 0 10px;
     outline: none;
@@ -195,11 +199,13 @@
     font-size: clamp(14px, 1.05vw, 18px);
     letter-spacing: 0.11em;
     text-transform: uppercase;
-    padding: clamp(7px, 0.5vw, 9px) clamp(36px, 3.4vw, 58px);
+    padding: calc(clamp(7px, 0.5vw, 9px) + var(--cap-nudge)) clamp(36px, 3.4vw, 58px) calc(clamp(7px, 0.5vw, 9px) - var(--cap-nudge));
     cursor: pointer;
     transition: opacity 0.25s;
   }
   .submit-btn:hover { opacity: 0.85; }
+  .submit-btn:disabled { opacity: 0.6; cursor: wait; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
   #entry-thanks { display: none; }
   #entry-thanks h2 {
@@ -249,13 +255,19 @@
     .panel-cols { grid-template-columns: 1fr; }
     .panel-divider { width: 100%; height: 1.5px; }
     .stamp-santa-hat, .stamp-wreath, .stamp-holly { display: none; }
-    .stamp-tree { top: 190px; }
   }
   @media (max-width: 540px) {
-    .stamp-present { width: 74px; }
-    .stamp-tree { width: 78px; left: 1vw; }
-    .stamp-holly { display: none; }
-    .tease { max-width: 86vw; }
+    /* 7 tiles + 6 gaps of 4px + 16px side margins fill the phone width */
+    .tile {
+      width: min(56px, calc((100vw - 56px) / 7));
+      height: min(56px, calc((100vw - 56px) / 7));
+      font-size: min(35px, calc((100vw - 56px) / 7 * 0.62));
+    }
+    .stamp-tree { left: 3vw; top: 58px; width: 62px; }
+    .stamp-present { right: 3vw; top: 14px; width: 58px; }
+    .tease { max-width: 86vw; margin: 44px auto 48px; }
+    .shuffle-line button { min-height: 44px; }
+    .submit-btn { width: 100%; min-height: 48px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .tile { animation: none; opacity: 1; }
@@ -264,17 +276,18 @@
 </head>
 <body>
 
-<div class="stamp stamp-tree"><img src="assets/stamp-tree.svg" alt=""></div>
-<div class="stamp stamp-present"><img src="assets/stamp-present.png" alt=""></div>
-<div class="stamp stamp-wreath"><img src="assets/stamp-wreath.svg" alt=""></div>
-<div class="stamp stamp-santa-hat"><img src="assets/stamp-santa-hat.svg" alt=""></div>
-<div class="stamp stamp-holly"><img src="assets/stamp-holly.svg" alt=""></div>
-
 <main>
+  <div class="stage">
+  <div class="stamp stamp-tree"><img src="assets/stamp-tree.svg" alt=""></div>
+  <div class="stamp stamp-present"><img src="assets/stamp-present.png" alt=""></div>
+  <div class="stamp stamp-wreath"><img src="assets/stamp-wreath.svg" alt=""></div>
+  <div class="stamp stamp-santa-hat"><img src="assets/stamp-santa-hat.svg" alt=""></div>
+  <div class="stamp stamp-holly"><img src="assets/stamp-holly.svg" alt=""></div>
+
   <header class="hero" aria-label="The Christmas Conundrum">
     <img class="title-the" src="assets/title-the.svg" alt="The">
     <img class="title-christmas" src="assets/title-christmas.svg" alt="Christmas">
-    <img class="title-conundrum" src="assets/title-conundrum.svg" alt="Conundrum">
+    <img class="title-conundrum" src="assets/title-conundrum.svg?v=2" alt="Conundrum">
   </header>
 
   <div class="jumble" id="jumble" aria-label="Jumbled letters"></div>
@@ -282,7 +295,8 @@
     <button id="btn-shuffle" type="button">Shuffle letters</button>
   </div>
 
-  <p class="tease">There&rsquo;s a festive two-word phrase hiding in the letters above. Can you crack it?</p>
+  <p class="tease">There&rsquo;s a festive three&#8209;word phrase hiding in the letters above. Can you crack it?</p>
+  </div>
 
   <section class="panel">
     <div class="panel-cols">
@@ -309,13 +323,17 @@
             <label for="f-business">Business</label>
             <input id="f-business" type="text" autocomplete="organization">
           </div>
+          <div class="hp" aria-hidden="true">
+            <label for="f-website">Website</label>
+            <input id="f-website" type="text" tabindex="-1" autocomplete="off">
+          </div>
           <div class="form-footer">
             <button type="submit" class="submit-btn" id="btn-submit">Submit</button>
           </div>
         </form>
         <div id="entry-thanks">
           <h2>Merry Christmas.</h2>
-          <p>Your entry is ready in your email app &mdash; hit send to lock it in. We&rsquo;ll announce weekly winners in the run&#8209;up to Christmas. Good luck.</p>
+          <p>You&rsquo;re in the running. We&rsquo;ll announce weekly winners in the run&#8209;up to Christmas. Good luck.</p>
         </div>
       </div>
     </div>
@@ -329,8 +347,8 @@
 "use strict";
 
 /* ================= The conundrum ================= */
-const JUMBLE = "NCATRASSOIBMZH".split(""); // fixed scramble shown to everyone
-const ENTRY_EMAIL = "tom@pompom.studio";    // where entries are sent
+const JUMBLE = "TECRDREHEPESHA".split(""); // fixed scramble shown to everyone
+const ENTRY_ENDPOINT = "";  // URL that receives entries as JSON POST — see README "Where entries go"
 
 /* ================= Jumble tiles ================= */
 const jumbleEl = document.getElementById("jumble");
@@ -384,40 +402,46 @@ if (localStorage.getItem(STORAGE_ENTERED)) {
   thanksEl.style.display = "block";
 }
 
-formEl.addEventListener("submit", e => {
+const submitBtn = document.getElementById("btn-submit");
+
+formEl.addEventListener("submit", async e => {
   e.preventDefault();
-  const fields = ["f-answer", "f-name", "f-email", "f-business"];
+  const fields = { answer: "f-answer", name: "f-name", email: "f-email", business: "f-business" };
   let bad = false;
   const values = {};
-  fields.forEach(id => {
+  Object.entries(fields).forEach(([key, id]) => {
     const input = document.getElementById(id);
     const v = input.value.trim();
-    const invalid = !v || (id === "f-email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+    const invalid = !v || (key === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
     input.closest(".field").classList.toggle("error", invalid);
     if (invalid) bad = true;
-    values[id] = v;
+    values[key] = v;
   });
   if (bad) { toast("Please complete all fields"); return; }
+  values.website = document.getElementById("f-website").value;
 
-  const body =
-    `Answer: ${values["f-answer"]}\n` +
-    `Name: ${values["f-name"]}\n` +
-    `Email: ${values["f-email"]}\n` +
-    `Business: ${values["f-business"]}\n`;
-  const href = `mailto:${ENTRY_EMAIL}?subject=${encodeURIComponent("The Christmas Conundrum — entry")}&body=${encodeURIComponent(body)}`;
-  const a = document.createElement("a");
-  a.href = href;
-  a.target = "_blank";
-  a.rel = "noopener";
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Sending…";
+  try {
+    const res = await fetch(ENTRY_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    });
+    const out = await res.json().catch(() => ({}));
+    if (!res.ok || !out.ok) throw new Error(out.error || res.status);
+  } catch (err) {
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Submit";
+    toast("Couldn't send your entry. Please try again", 2600);
+    return;
+  }
 
   localStorage.setItem(STORAGE_ENTERED, "1");
   formEl.style.display = "none";
   thanksEl.style.display = "block";
   thanksEl.scrollIntoView({ behavior: "smooth", block: "center" });
-  toast("Opening your email app");
+  toast("Entry received");
 });
 </script>
 </body>

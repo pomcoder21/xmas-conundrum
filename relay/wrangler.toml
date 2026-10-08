@@ -1,0 +1,12 @@
+name = "xmas-conundrum-entries"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+# Private GitHub repo + file that entries are appended to
+REPO = "pomcoder21/xmas-entries"
+CSV_PATH = "entries.csv"
+# Comma-separated list of site origins allowed to submit (no trailing slash)
+ALLOWED_ORIGINS = "https://pomcoder21.github.io"
+
+# Secret (not stored here): GITHUB_TOKEN — set with `npx wrangler secret put GITHUB_TOKEN`
